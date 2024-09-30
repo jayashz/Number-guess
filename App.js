@@ -1,21 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import StartGameScreen from "./screens/StartGameScreen";
+import { LinearGradient } from "expo-linear-gradient";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LinearGradient
+      style={styles.container}
+      colors={["#658147", "#E7F0DC"]}>
+        <ImageBackground source={require('./images/Dice.jpg')} resizeMode="cover" style={{flex:1}} imageStyle={styles.imageBg}>
+        <StartGameScreen />
+        </ImageBackground>
+      
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  imageBg:{
+    opacity:0.45,
+  }
 });
