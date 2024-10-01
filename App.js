@@ -5,18 +5,33 @@ import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from'./screens/GameOverScreen';
-
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 export default function App() {
   const [userInp,setUserInp] = useState(null);
   const [gameOver,setGameOver] =useState(true);
-  
+  const [guessRounds,setGuessRounds] = useState(0);
+  const  [fontsLoaded] =useFonts({
+      'open-sans':require('./assets/fonts/OpenSans-Regular.ttf'),
+      'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+    });
+    
+  if(!fontsLoaded){
+    return <AppLoading />
+  }
 
   function pickedNumHandler(pickedNum){
     setUserInp(pickedNum);
     setGameOver(false);
   }
-  function gameOverhandler(){
+  function gameOverhandler(numOfGuess){
+    setGuessRounds(numOfGuess);
     setGameOver(true);
+
+  };
+  function startNewGameHandler(){
+    setUserInp(null);
+    setGuessRounds(0);
   };
   let screen = <StartGameScreen onPick={pickedNumHandler} />;
 
@@ -26,7 +41,8 @@ export default function App() {
   }
 
   if(gameOver && userInp){
-    screen= <GameOverScreen />
+
+    screen= <GameOverScreen userNum={userInp} guessRounds={guessRounds} onStartNewGame={startNewGameHandler} />
   }
   return (
     <LinearGradient

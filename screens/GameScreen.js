@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
 import ScreenTitle from "../components/ui/ScreenTitle";
 import NumberContainer from "../components/game/NumberContainer";
@@ -7,6 +7,9 @@ import PrimaryBtn from "../components/ui/PrimaryBtn";
 import Colors from "../constants/colors";
 import { useEffect } from "react";
 import Card from "../components/ui/Card";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Entypo from "@expo/vector-icons/Entypo";
+import Guess from "../components/ui/Guess";
 
 let minBoundary = 1;
 let maxBoundary = 100;
@@ -19,19 +22,27 @@ function randomNumberGenerator(min, max, exclude) {
 const GameScreen = ({ userNum, onGameOver }) => {
   const initialGuess = randomNumberGenerator(1, 100, userNum);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess == userNum) {
-      onGameOver();
+      //Only executes when the game is over
+      minBoundary = 1;
+      maxBoundary = 100;
+      onGameOver(guessRounds.length);
     }
   }, [currentGuess, userNum, onGameOver]);
 
+  // useEffect(()=>{
+  //   minBoundary=1;
+  //   maxBoundary=2;
+  // },[]);
   function nextGuessHandler(direc) {
     if (
       (direc === "lower" && currentGuess < userNum) ||
       (direc === "higher" && currentGuess > userNum)
     ) {
-      Alert.alert("Lier!!", "The god says ur lying.", { text: "Sorry" });
+      Alert.alert("Lier!!", "The god says ur lying.", [{ text: "Sorry" }]);
       return;
     }
     if (direc === "lower") {
@@ -42,6 +53,7 @@ const GameScreen = ({ userNum, onGameOver }) => {
 
     const newRandomNum = randomNumberGenerator(minBoundary, maxBoundary, 0);
     setCurrentGuess(newRandomNum);
+    setGuessRounds((prevGuessRounds) => [newRandomNum,...prevGuessRounds]);
   }
 
   return (
@@ -54,17 +66,20 @@ const GameScreen = ({ userNum, onGameOver }) => {
           <View style={styles.btnContainer}>
             <View style={styles.btnContainer2}>
               <PrimaryBtn onPress={nextGuessHandler.bind(this, "higher")}>
-                +
+                <FontAwesome6 name="add" size={24} color="black" />
               </PrimaryBtn>
             </View>
             <View style={styles.btnContainer2}>
               <PrimaryBtn onPress={nextGuessHandler.bind(this, "lower")}>
-                -
+                <FontAwesome6 name="minus" size={24} color="black" />
               </PrimaryBtn>
             </View>
           </View>
         </View>
       </Card>
+      <ScrollView style={{marginTop:4}}>
+        {guessRounds.map(guess=><Guess key={guess}>{guess}</Guess>)}
+      </ScrollView>
     </View>
   );
 };
@@ -83,13 +98,13 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "row",
   },
-  btnContainer2:{
-    flex:1
+  btnContainer2: {
+    flex: 1,
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.primary,
-    marginBottom:20
+    marginBottom: 20,
   },
 });

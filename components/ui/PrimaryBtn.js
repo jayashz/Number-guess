@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 16,
-    fontWeight:'bold'
+    fontFamily:'open-sans'
   },
   btnPressed:{
     backgroundColor:Colors.primaryDarker,

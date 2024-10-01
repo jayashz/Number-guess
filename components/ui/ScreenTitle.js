@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet,Text } from 'react-native'
-import Colors from '../../constants/colors'
+import Colors from '../../constants/colors';
+
 const ScreenTitle = ({children}) => {
   return (
     <Text style={styles.title}>{children}</Text>
@@ -11,9 +12,9 @@ export default ScreenTitle
 
 const styles= StyleSheet.create({
     title:{
+        fontFamily:'open-sans-bold',
         fontSize:25,
-        fontWeight:"bold",
-        color:'#059212',
+        color:Colors.highlight,
         textAlign:'center',
         borderWidth:2,
         borderColor:Colors.primaryMoreDarker,

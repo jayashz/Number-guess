@@ -30,7 +30,7 @@ const StartGameScreen = ({ onPick }) => {
     <View style={styles.rootContainer}>
       <ScreenTitle>Guess The Number</ScreenTitle>
       <Card>
-        <Text style={{fontSize:24, fontWeight:'bold',color:Colors.primary}}>Enter your number:</Text>
+        <Text style={{fontSize:24, fontFamily:'open-sans-bold',color:Colors.primary}}>Enter your number:</Text>
         <TextInput
           style={styles.input}
           maxLength={2}
