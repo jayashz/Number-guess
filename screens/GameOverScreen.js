@@ -1,17 +1,30 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import ScreenTitle from "../components/ui/ScreenTitle";
 import { Image } from "react-native";
 import Colors from "../constants/colors";
 import PrimaryBtn from "../components/ui/PrimaryBtn";
 const GameOverScreen = ({ guessRounds, onStartNewGame, userNum }) => {
+  const {width,height}=useWindowDimensions();
+  let imageSize=300;
+  if(width<400){
+    imageSize=200;
+  }
+  if(height<420){
+    imageSize=150;
+  }
+  const imageStyle={
+    width:imageSize,
+    height:imageSize,
+    borderRadius:imageSize/2
+  }
   return (
     <View style={style.mainContainer}>
       <ScreenTitle>Gameover!!</ScreenTitle>
-      <View style={style.imgContainer}>
+      <View style={[style.imgContainer,imageStyle]}>
         <Image
           source={require("../images/giphy.gif")}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", }}
         />
       </View>
       <View>
@@ -26,7 +39,7 @@ const GameOverScreen = ({ guessRounds, onStartNewGame, userNum }) => {
 };
 
 export default GameOverScreen;
-
+const deviceWidth = Dimensions.get('window').width;
 const style = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -34,10 +47,10 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
   imgContainer: {
-    width: 300,
-    height: 300,
+    // width: deviceWidth<380? 200: 300,
+    // height: deviceWidth<380? 200: 300,
+    // borderRadius: 200,
     marginTop: 40,
-    borderRadius: 200,
     overflow: "hidden",
     borderWidth: 2,
   },

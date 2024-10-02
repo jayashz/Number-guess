@@ -19,7 +19,8 @@ export default PrimaryBtn;
 const styles = StyleSheet.create({
   mainContainer: {
     overflow:'hidden',
-    borderRadius:20
+    borderRadius:20,
+    maxWidth:200
   },
   container: {
     backgroundColor: Colors.primary,

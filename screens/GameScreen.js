@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { StyleSheet } from "react-native";
 import ScreenTitle from "../components/ui/ScreenTitle";
 import NumberContainer from "../components/game/NumberContainer";
@@ -23,6 +29,7 @@ const GameScreen = ({ userNum, onGameOver }) => {
   const initialGuess = randomNumberGenerator(1, 100, userNum);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [guessRounds, setGuessRounds] = useState([initialGuess]);
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (currentGuess == userNum) {
@@ -53,12 +60,11 @@ const GameScreen = ({ userNum, onGameOver }) => {
 
     const newRandomNum = randomNumberGenerator(minBoundary, maxBoundary, 0);
     setCurrentGuess(newRandomNum);
-    setGuessRounds((prevGuessRounds) => [newRandomNum,...prevGuessRounds]);
+    setGuessRounds((prevGuessRounds) => [newRandomNum, ...prevGuessRounds]);
   }
 
-  return (
-    <View style={styles.screen}>
-      <ScreenTitle>Your phone's guess</ScreenTitle>
+  let content = (
+    <>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
         <View style={styles.textContainer}>
@@ -77,8 +83,36 @@ const GameScreen = ({ userNum, onGameOver }) => {
           </View>
         </View>
       </Card>
-      <ScrollView style={{marginTop:4}}>
-        {guessRounds.map(guess=><Guess key={guess}>{guess}</Guess>)}
+    </>
+  );
+  if (width > 500) {
+    content = (
+      <>
+        <Text style={styles.text}>Guess higher or lower?</Text>
+        <View style={{flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
+          <View style={styles.btnContainer2}>
+            <PrimaryBtn onPress={nextGuessHandler.bind(this, "higher")}>
+              <FontAwesome6 name="add" size={24} color="black" />
+            </PrimaryBtn>
+          </View>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={[styles.btnContainer2,{marginLeft:35}]}>
+            <PrimaryBtn onPress={nextGuessHandler.bind(this, "lower")}>
+              <FontAwesome6 name="minus" size={24} color="black" />
+            </PrimaryBtn>
+          </View>
+        </View>
+      </>
+    );
+  }
+  return (
+    <View style={styles.screen}>
+      <ScreenTitle>Your phone's guess</ScreenTitle>
+      {content}
+      <ScrollView style={{ marginTop: 4,borderTopWidth:2,paddingTop:3,marginTop:10 }}>
+        {guessRounds.map((guess) => (
+          <Guess key={guess}>{guess}</Guess>
+        ))}
       </ScrollView>
     </View>
   );
@@ -90,6 +124,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
   },
   textContainer: {
     alignItems: "center",
@@ -105,6 +141,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: Colors.primary,
-    marginBottom: 20,
   },
 });
