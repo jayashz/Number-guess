@@ -12,7 +12,7 @@ export default ScreenTitle
 
 const styles= StyleSheet.create({
     title:{
-        fontFamily:'open-sans-bold',
+        fontWeight:'bold',
         fontSize:25,
         color:Colors.highlight,
         textAlign:'center',

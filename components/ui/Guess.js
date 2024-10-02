@@ -8,7 +8,7 @@ const Guess = ({ children }) => {
 
         <Text style={style.text}>
           Phone's guess:
-          <Text style={{ fontFamily: "open-sans-bold" }}> {children}</Text>
+          <Text style={{ fontWeight:'bold' }}> {children}</Text>
         </Text>
 
     </Card>
@@ -18,7 +18,8 @@ const Guess = ({ children }) => {
 export default Guess;
 const style = StyleSheet.create({
   text: {
-    fontFamily: "open-sans",
+
     color: Colors.highlight,
+    fontSize:18
   },
 });

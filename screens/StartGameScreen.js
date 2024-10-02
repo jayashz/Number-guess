@@ -51,11 +51,11 @@ const StartGameScreen = ({ onPick }) => {
         <Text
           style={{
             fontSize: 24,
-            fontFamily: "open-sans-bold",
             color: Colors.primary,
+            fontWeight:'semibold'
           }}
         >
-          Enter your number:
+          Enter your number
         </Text>
         <TextInput
           style={styles.input}

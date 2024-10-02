@@ -55,14 +55,15 @@ const style = StyleSheet.create({
     borderWidth: 2,
   },
   desc: {
-    fontFamily: "open-sans",
+
     fontSize: 24,
     marginVertical: 25,
     textAlign: "center",
     paddingHorizontal:10
   },
   descHighlight: {
-    fontFamily: "open-sans-bold",
+
     color: Colors.highlight,
+    fontWeight:'bold'
   },
 });

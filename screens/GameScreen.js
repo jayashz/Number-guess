@@ -69,7 +69,7 @@ const GameScreen = ({ userNum, onGameOver }) => {
       <Card>
         <View style={styles.textContainer}>
           <Text style={styles.text}>Guess higher or lower?</Text>
-          <View style={styles.btnContainer}>
+          <View style={[styles.btnContainer,{marginTop:30}]}>
             <View style={styles.btnContainer2}>
               <PrimaryBtn onPress={nextGuessHandler.bind(this, "higher")}>
                 <FontAwesome6 name="add" size={24} color="black" />

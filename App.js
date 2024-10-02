@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import StartGameScreen from "./screens/StartGameScreen";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,19 +7,18 @@ import GameScreen from "./screens/GameScreen";
 import GameOverScreen from'./screens/GameOverScreen';
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import { Platform } from "react-native";
 export default function App() {
   const [userInp,setUserInp] = useState(null);
   const [gameOver,setGameOver] =useState(true);
   const [guessRounds,setGuessRounds] = useState(0);
-  const  [fontsLoaded] =useFonts({
-      'open-sans':require('./assets/fonts/OpenSans-Regular.ttf'),
-      'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-    });
-    
-  if(!fontsLoaded){
+
+ 
+  
+
+  function loadingHandler(){
     return <AppLoading />
   }
-
   function pickedNumHandler(pickedNum){
     setUserInp(pickedNum);
     setGameOver(false);
